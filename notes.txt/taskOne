@@ -1,0 +1,383 @@
+Piano Keys
+
+Step 1
+
+i) At the start we've variable name assignments for the keys array and the notes array.
+There's also a function looping through the elements of the keys array and pushing them
+to the notes array (Connecting up the notes and corresponding keys important if you want to 
+create an interactive piano game).
+
+ii) After the 2nd comment create function named keyPlay that changes the background colour of 
+the keys when they are pressed (using JS with the DOM to access style.css and edit styles)
+
+Be sure to  use the .target property in the function because the target is being modified in this
+case.
+
+iii)
+const keys = ['c-key', 'd-key', 'e-key', 'f-key', 'g-key', 'a-key', 
+            'b-key', 'high-c-key', 'c-sharp-key', 'd-sharp-key', 
+            'f-sharp-key', 'g-sharp-key', 'a-sharp-key'];
+const notes = [];
+keys.forEach(function(key){
+  notes.push(document.getElementById(key));
+})
+
+NB: We're passing in elements (NOT STRs) that are being grabbed by their corresponding class name...
+So we pass in document.GetElementById for the c-key...
+So we look for the element in index.html, re: 
+
+<section class="piano">
+    <section id='c-key' class="key">
+      <section class='keynote'>C</section>
+    </section>
+
+iv) So when we click on one of those keys on the piano roll we want background-color to change...
+1st we write our function under the var name keyplay so define the var via const and set it
+ = to a function keyplay. The function also needs to pass an event, re: we click on a note
+ this triggers an event which we define and implement via our codeblock:
+ event.target is the prop that returns the el. that triggered the event, now we access the
+CSS re: colour change via .style (Use camelcase when you call the attributes e.g. Props)     
+
+Step 1 code:
+
+const keyplay = function(event) {
+event.target.style.backgroundColor = '#6df0c2;
+
+}
+
+Step 2
+
+i) create a function named keyReturn that returns the background color of the keys to their 
+default with an empty string '' when mouse is releases on the element.
+
+We use the same syntax as before as we'll implement an empty str to return keys to default
+which is no backgroundColor as such.
+
+Step 2 code:
+
+const keyplay = function(event) {
+event.target.style.backgroundColor = ''
+}
+
+Summary: So far these function will do nothing... until we append them to el by assigning 
+them as values of event handler properties...
+
+Steps 3 and 4
+
+i) ...so we create named function and leave code block blank (for now) Later on we'll use this function
+to assign events to keys. Can take one parameter and call it note....so we need the nodes to be able to
+access these functions. So we write our function and pass a parameter called note: 
+
+let eventAssignment = function(note) {
+  
+}  
+
+Inside the function, create an event handler that runs the keyPlay as an event handler when a mousedown 
+event fires on any note.
+
+So here we're passing on note which was stored in the array and for each note we need to pass in these
+functions so that when there is a click, it triggers this handler.
+We actually need to pass in a function that has an event and basically triggers the function key play
+We use an anonymous function to do this. (2 functions passed into one code block)
+ In the code block we pass the function that we want to trigger so we created an event handler that runs 
+another event handler which targets this background for that specific note.  
+Re: Step 4 We also need to target the note itself so when it is clicked we do something with it, re:
+Inside the function, create a second event handler property that runs the keyReturn when a mouseup event
+fires on any note. So when the mousedown event fires we will fire a certain function, re: the onmousedown
+is an event that occurs when a user PRESSES the mouse button over an el (we don't want it to be clicked
+because if we click it it changes the colour and will stay as that colour, we want to change the
+backgroundColor only when we are pressing on mousedown. Finally we pass the function that we want to trigger
+via keyPlay(event);   
+
+let eventAssignment = function(note) {
+    note.onmousedown = function(){
+        keyPlay(event);
+}
+}
+
+Step 5
+
+Inside the function, create a second event handler property that runs the keyReturn when a mouseup event
+fires on any note.
+
+So we stay inside the function we created in steps 3 and 4 and add more functions to the code block!
+
+We add 
+note.onmouseup = function(){
+
+}
+We basically do the same as steps 3 and 4 the only thing we change is the function we call when the mouse 
+is released... we invoke the keyReturn function onto onmouseup and pass in the event
+
+keyReturn(event);
+
+So now we have:
+
+let eventAssignment = function(note) {
+    note.onmousedown = function(){
+        keyPlay(event);
+}
+        note.onmouseup = function(){
+          keyReturn(event);
+}
+}
+
+Not enough time now for the extensive notes so will just provide the step requirement and the code
+needed to implement it from here on in!
+
+Step 6
+
+At the beginning of the code, we have variable name assignments for the keys array and the empty notes 
+array. There is also a function looping through the keys array and pushing the keys elements to the notes
+array to be assigned a variable name.
+Now, you must create a .forEach loop that will pass the elements in the notes array through your event 
+assignment function.
+
+notes.forEach(eventAssignment);
+
+Step 7
+
+Now, the program knows what to do when each piano key has a mousedown or mouseup event fired on it. 
+Run your code and see how it works!
+
+It doesn't work!!!
+
+Step 8
+
+Next, there are variables that represent the progress buttons in the song box below that allow students
+to progress the piano.
+The nextOne, nextTwo, nextThree, and startOver change the lyrics and musical notes of the song to help 
+the student play along. In the beginning of the song the only button the student needs is nextOne. 
+Because of this the .hidden properties of the other buttons are assigned the value of true.
+Now you must create events on all the progress buttons. First, create an event handler property with 
+a click event on the nextOne element.
+
+nextOne.onclick
+
+Step 9
+
+To begin modifying the song box, you must switch the progress buttons first.
+
+Using an anonymous event handler function, make the following changes to the button that appears after 
+nextOne is clicked:
+
+Reveal the nextTwo button by changing the .hidden property to make the nextTwo button appear.
+Hide the nextOne button by changing the .hidden property to hide the nextOne button.
+
+nextOne.onclick = function() {
+  nextTwo.hidden = false;
+  nextOne.hidden = true;
+
+}
+
+Step 10 
+
+Next, a click event firing on the nextOne must change the music notes that guide the piano student through
+the song.
+Add the following changes to the nextOne event handler function so the musical notes change when the button
+is clicked.
+Change the content of the element with an ID of letter-note-five to D.
+Change the content of the element with an ID of letter-note-six to C.
+
+document.getElementById('letter-note-five').innerHTML = 'D'
+document.getElementById('letter-note-six').innerHTML = 'C'
+
+
+Step 11
+
+Create another event handler property with a click event on the button element called nextTwo. 
+Then assign the property to the value of an anonymous event handler function.
+
+nextTwo.onclick = function() {
+
+
+}
+
+Step 12
+
+Make the following changes to the button that appears when nextTwo is clicked:
+Reveal the nextThree button by changing the .hidden property to make the nextThree button appear.
+Hide the nextTwo button by changing the .hidden property to hide the nextTwo button.
+
+nextTwo.onclick = function() {
+  nextThree.hidden = false;
+  nextTwo.hidden = true;
+
+}
+
+
+Step 13
+
+Once the student has reached this point of the Happy Birthday song the lyrics changes from 
+HAP-PY BIRTH-DAY TO YOU to HAP-PY BIRTH-DAY DEAR FRI-END.
+
+Make the make the following changes to the lyrics in the function when the button is clicked:
+
+Change the content of the element with an ID of word-five to DEAR.
+Change the content of the element with an ID of word-six to FRI-.
+
+nextTwo.onclick = function() {
+  nextThree.hidden = false;
+  nextTwo.hidden = true;
+
+  document.getElementById('word-five').innerHTML = 'DEAR';
+  document.getElementById('word-six').innerHTML = 'FRI-';
+}
+
+
+Step 14
+
+Now you have the lyrics HAP-PY BIRTH-DAY DEAR FRI-. To finish the line, you must add the -END to 
+the song box under the piano.
+
+The -END element is stored in the lastLyric variable.
+
+Add a statement to the event handler function for nextTwo that changes the display property of lastLyric 
+to 'inline-block'.
+
+nextTwo.onclick = function() {
+  nextThree.hidden = false;
+  nextTwo.hidden = true;
+
+  document.getElementById('word-five').innerHTML = 'DEAR';
+  document.getElementById('word-six').innerHTML = 'FRI-';
+
+  lastLyric.style.display = 'inline-block';
+}
+
+
+Step 15
+
+A click event firing on the second button must also change the music notes to guide the piano student
+through the song.
+
+Add the following changes to the nextTwo event handler function so the musical notes change when the 
+button is clicked:
+
+Change the content of the element with an ID of letter-note-three to G.
+Change the content of the element with an ID of letter-note-four to E.
+Change the content of the element with an ID of letter-note-five to C.
+Change the content of the element with an ID of letter-note-six to B.
+
+nextTwo.onclick = function() {
+  nextThree.hidden = false;
+  nextTwo.hidden = true;
+
+  document.getElementById('word-five').innerHTML = 'DEAR';
+  document.getElementById('word-six').innerHTML = 'FRI-';
+
+  document.getElementById('letter-note-three').innerHTML = 'G';
+  document.getElementById('letter-note-four').innerHTML = 'E';
+  document.getElementById('letter-note-five').innerHTML = 'C';
+  document.getElementById('letter-note-six').innerHTML = 'B';
+
+  lastLyric.style.display = 'inline-block';
+}
+
+
+Step 16
+
+Create an event handler property with a click event on the nextThree element.
+
+nextThree.onClick
+
+
+Step 17
+
+Using an anonymous event handler function, make the following changes to the button that appears 
+when nextThree is clicked:
+
+Reveal the startOver button by changing the .hidden property to make the startOver button appear.
+Hide the nextThree button by changing the .hidden property to hide the nextThree button.
+
+Hide the nextThree button by changing the .hidden property to hide the nextThree button.
+
+nextThree.onClick = function(){
+  startOver.hidden = false;
+  nextThree.hidden = true;
+};
+
+
+Step 18
+
+Add the following changes to the nextThree event handler function so the lyrics change when this 
+button is clicked.
+
+Change the content of the element with an ID of word-one to HAP-.
+Change the content of the element with an ID of word-two to PY.
+Change the content of the element with an ID of word-three to BIRTH.
+Change the content of the element with an ID of word-four to DAY
+Change the content of the element with an ID of word-five to TO.
+Change the content of the element with an ID of word-six to YOU!.
+
+nextThree.onClick = function(){
+  startOver.hidden = false;
+  nextThree.hidden = true;
+
+  document.getElementById('word-one').innerHTML = 'Hap-';
+  document.getElementById('word-two').innerHTML = 'PY-';
+  document.getElementById('word-three').innerHTML = 'BIRTH';
+  document.getElementById('word-four').innerHTML = 'DAY';
+  document.getElementById('word-five').innerHTML = 'TO';
+  document.getElementById('word-six').innerHTML = 'YOU';
+};
+
+Step 19
+
+Add the following changes to the nextThree event handler function so the musical notes change 
+when the button is clicked.
+
+Change the content of the element with an ID of letter-note-one to F.
+Change the content of the element with an ID of letter-note-two to F.
+Change the content of the element with an ID of letter-note-three to E.
+Change the content of the element with an ID of letter-note-four to C.
+Change the content of the element with an ID of letter-note-five to D.
+Change the content of the element with an ID of letter-note-six to C.
+
+nextThree.onClick = function(){
+  startOver.hidden = false;
+  nextThree.hidden = true;
+
+  document.getElementById('word-one').innerHTML = 'Hap-';
+  document.getElementById('word-two').innerHTML = 'PY-';
+  document.getElementById('word-three').innerHTML = 'BIRTH';
+  document.getElementById('word-four').innerHTML = 'DAY';
+  document.getElementById('word-five').innerHTML = 'TO';
+  document.getElementById('word-six').innerHTML = 'YOU';
+
+  document.getElementById('letter-note-one').innerHTML = 'F';
+  document.getElementById('letter-note-two').innerHTML = 'F';
+  document.getElementById('letter-note-three').innerHTML = 'E';
+  document.getElementById('letter-note-four').innerHTML = 'C';
+  document.getElementById('letter-note-five').innerHTML = 'D';
+  document.getElementById('letter-note-six').innerHTML = 'C';
+};
+
+Step 20
+
+Now you have the lyricsHAP-PY BIRTH-DAY TO YOU! -END — that couldn’t be right! 
+To finish the line you must get rid of the “-end” in the song box.
+
+Add a statement to the event handler function for nextThree that changes the 
+display property of lastLyric back to 'none'.
+
+nextThree.onClick = function(){
+  startOver.hidden = false;
+  nextThree.hidden = true;
+
+  document.getElementById('word-one').innerHTML = 'Hap-';
+  document.getElementById('word-two').innerHTML = 'PY-';
+  document.getElementById('word-three').innerHTML = 'BIRTH';
+  document.getElementById('word-four').innerHTML = 'DAY';
+  document.getElementById('word-five').innerHTML = 'TO';
+  document.getElementById('word-six').innerHTML = 'YOU';
+
+  document.getElementById('letter-note-one').innerHTML = 'F';
+  document.getElementById('letter-note-two').innerHTML = 'F';
+  document.getElementById('letter-note-three').innerHTML = 'E';
+  document.getElementById('letter-note-four').innerHTML = 'C';
+  document.getElementById('letter-note-five').innerHTML = 'D';
+  document.getElementById('letter-note-six').innerHTML = 'C';
+
+  lastLyric.style.display = 'none';
+};
